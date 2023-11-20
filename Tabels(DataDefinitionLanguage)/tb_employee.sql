@@ -7,4 +7,5 @@ CREATE TABLE DB_UNIVERSE.void.tb_employee
     email_address VARCHAR(255) NOT NULL,
     phone INT NOT NULL
 );
+
 CREATE EMPLOYEEID INDEX CIX_EMPLOYEEID ON DB_UNIVERSE.void.tb_employee (name_id);
