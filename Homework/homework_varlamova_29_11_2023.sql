@@ -15,8 +15,7 @@ AND EXISTS (
 
 
 --Выбрать планеты только тех галактик, у которых масса галактики больше N(любое число) 
-DECLARE @n int
-SET @n = 100
+DECLARE @n INT
 
 SELECT tp.*
 FROM DB_UNIVERSE.void.tb_planets tp WITH (NOLOCK) 
@@ -31,5 +30,3 @@ WHERE EXISTS (
                     AND tg.mass > @n
                 )
              )
-
-
