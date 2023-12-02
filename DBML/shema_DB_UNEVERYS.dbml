@@ -1,113 +1,71 @@
 Table "tb_expedition" {
-  "name_id" VARCHAR [unique, pk]
-  "create_date" DATETIME2(0)
-  "name_spacecraft_id" VARCHAR
-  "start_flight_time" DATETIME2(0)
-  "finish_flight_time" DATETIME2(0)
-  "employee_expedition_id" VARCHAR(255)
+  "name_id" VARCHAR(255) [NOT NULL, UNIQUE]
+  "name_spacecraft_id" VARCHAR(255) [NOT NULL]
+  "start_flight_time" DATETIME2(0) [NOT NULL]
+  "finish_flight_time" DATETIME2(0) [NOT NULL]
+  "employee_expedition_id" VARCHAR(255) [NOT NULL]
 }
 
-Table "tb_expedition_options" {
-  "expedition_id" VARCHAR(255)
-  "create_date" DATETIME2(0)
-  "palnet_id" INT
-  "name" VARCHAR(255)
-  "descriptions" VARCHAR(255)
+Table "tb_expedition_bunch_planets" {
+  "expedition_id" VARCHAR(255) [NOT NULL]
+  "palnet_id" INT [NOT NULL]
 }
 
 Table "tb_galaxy" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "mass" INT
-  "core" BIT
-  "movement_stars" INT
-  "name" VARCHAR(255)
+  "id" INT [PRIMARY KEY]
+  "mass" INT [NOT NULL]
+  "core" BIT [NOT NULL]
+  "movement_stars" INT [NOT NULL]
+  "name" VARCHAR(255) [NOT NULL]
 }
 
 Table "tb_stars_system" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "galaxy_id" INT
-  "objects_id" INT
-  "mass" INT
-  "core" BIT
-  "movement_stars" VARCHAR(35)
+  "id" INT [PRIMARY KEY]
+  "galaxy_id" INT [NOT NULL]
   "name" VARCHAR(255)
 }
 
 Table "tb_stars" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "space_objects_id" INT [unique]
+  "id" INT [PRIMARY KEY]
+  "stars_system_id" INT [NOT NULL, UNIQUE]
 }
 
 Table "tb_planet" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "space_objects_id" INT [unique]
-}
-
-Table "tb_cat_properties" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "space_objects_id" INT [unique]
-  "objects_id" INT
-  "title" VARCHAR
-}
-
-Table "tb_cat_values" {
-  "space_objects_options_id" INT
-  "title" varchar(255)
+  "id" INT [PRIMARY KEY]
+  "stars_system_id" INT [NOT NULL, UNIQUE]
 }
 
 Table "tb_spacecraft" {
-  "name_id" VARCHAR(255) [unique]
-  "create_date" DATETIME2(0)
-  "break_spacecraft" BIT
+  "name_id" VARCHAR(255) [NOT NULL, UNIQUE]
+  "break_spacecraft" BIT [NOT NULL]
 }
 
-Table "tb_spacecraft_options" {
-  "spacecraft_id" VARCHAR(255)
-  "create_date" DATETIME2(0)
-  "title" VARCHAR(255)
-  "description" VARCHAR(8000)
-}
 
 Table "tb_employee_expedition" {
-  "name_id" VARCHAR(255) [unique]
-  "create_date" DATETIME2(0)
-  "employee_expedition_id" VARCHAR(255)
+  "name_id" VARCHAR(255)  [NOT NULL, UNIQUE]
+  "employee_expedition_id" VARCHAR(255) [NOT NULL]
 }
 
 Table "tb_employee" {
-  "id" INT [pk]
-  "create_date" DATETIME2(0)
-  "email_address" VARCHAR(255)
-  "name" VARCHAR(255)
-  "phone" INT
-  "position" VARCHAR(255)
+  "id" INT [PRIMARY KEY]
+  "email_address" VARCHAR(255) [NOT NULL]
+  "name" VARCHAR(255) [NOT NULL]
+  "phone" INT [NOT NULL]
+  "position" VARCHAR(255) [NOT NULL]
 }
 
-Ref:"tb_expedition_options"."expedition_id" < "tb_expedition"."name_id"
+Ref:"tb_expedition_bunch_planets"."expedition_id" < "tb_expedition"."name_id"
 
 Ref:"tb_spacecraft"."name_id" < "tb_expedition"."name_spacecraft_id"
 
 Ref:"tb_employee_expedition"."name_id" < "tb_expedition"."employee_expedition_id"
 
-Ref:"tb_expedition_options"."palnet_id" < "tb_planet"."id"
+Ref:"tb_expedition_bunch_planets"."palnet_id" < "tb_planet"."id"
 
 Ref:"tb_stars_system"."galaxy_id" < "tb_galaxy"."id"
 
-Ref:"tb_stars"."space_objects_id" < "tb_stars_system"."id"
+Ref:"tb_stars_system"."id" < "tb_stars"."stars_system_id"
 
-Ref:"tb_planet"."space_objects_id" < "tb_stars_system"."id"
-
-Ref:"tb_cat_properties"."space_objects_id" < "tb_planet"."id"
-
-Ref:"tb_cat_properties"."space_objects_id" < "tb_stars"."id"
-
-Ref:"tb_cat_properties"."id" < "tb_cat_values"."space_objects_options_id"
-
-Ref:"tb_spacecraft"."name_id" < "tb_spacecraft_options"."spacecraft_id"
+Ref:"tb_stars_system"."id" < "tb_planet"."stars_system_id"
 
 Ref:"tb_employee_expedition"."employee_expedition_id" < "tb_employee"."id"
