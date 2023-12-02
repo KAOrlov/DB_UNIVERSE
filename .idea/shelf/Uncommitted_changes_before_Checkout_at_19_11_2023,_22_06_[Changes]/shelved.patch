@@ -1,0 +1,191 @@
+Index: Sсhema/sсhema_DB_UNEVERYS.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>CREATE TABLE `tb_expedition` (\n  `name_id` varchar PRIMARY KEY,\n  `created_at` timestamp,\n  `name_spacecraft_id` varchar,\n  `start_flight_time` DATETIME2,\n  `finish_flight_time` DATETIME2,\n  `employee_expedition_id` varchar,\n  `palnet_id` int\n);\n\nCREATE TABLE `tb_expedition_options` (\n  `expedition_id` varchar,\n  `created_at` timestamp,\n  `name` varchar,\n  `descriptions` varchar\n);\n\nCREATE TABLE `tb_galaxy` (\n  `id` INT PRIMARY KEY,\n  `create_date` DATETIME2,\n  `mass` INT,\n  `core` BIT,\n  `movement_stars` INT,\n  `name` VARCHAR\n);\n\nCREATE TABLE `tb_stars_system` (\n  `id` integer PRIMARY KEY,\n  `galaxy_id` INT,\n  `objects_id` INT,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_stars` (\n  `id` integer PRIMARY KEY,\n  `space_objects_id` integer UNIQUE,\n  `title` varchar,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_planet` (\n  `id` integer PRIMARY KEY,\n  `space_objects_id` integer UNIQUE,\n  `title` varchar,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_cat_properties` (\n  `id` integer PRIMARY KEY,\n  `space_objects_id` integer UNIQUE,\n  `objects_id` integer,\n  `title` varchar,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_cat_values` (\n  `space_objects_options_id` integer,\n  `title` varchar,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_spacecraft` (\n  `name_id` integer PRIMARY KEY,\n  `mass` varchar,\n  `width` varchar,\n  `hight` varchar,\n  `length` varchar,\n  `engine` varchar,\n  `body` text COMMENT 'Content of the post'\n);\n\nCREATE TABLE `tb_employee_expedition` (\n  `id` integer PRIMARY KEY,\n  `employee_id` varchar\n);\n\nCREATE TABLE `tb_employee` (\n  `id` integer PRIMARY KEY,\n  `Email_address` varchar,\n  `Name` varchar,\n  `Phone` number,\n  `position` varchar,\n  `skill_id` integer,\n  `body` text COMMENT 'Content of the post'\n);\n\nALTER TABLE `tb_expedition` ADD FOREIGN KEY (`name_id`) REFERENCES `tb_expedition_options` (`expedition_id`);\n\nALTER TABLE `tb_expedition` ADD FOREIGN KEY (`name_spacecraft_id`) REFERENCES `tb_spacecraft` (`name_id`);\n\nALTER TABLE `tb_expedition` ADD FOREIGN KEY (`employee_expedition_id`) REFERENCES `tb_employee_expedition` (`id`);\n\nALTER TABLE `tb_planet` ADD FOREIGN KEY (`id`) REFERENCES `tb_expedition` (`palnet_id`);\n\nALTER TABLE `tb_galaxy` ADD FOREIGN KEY (`id`) REFERENCES `tb_stars_system` (`galaxy_id`);\n\nALTER TABLE `tb_stars_system` ADD FOREIGN KEY (`id`) REFERENCES `tb_stars` (`space_objects_id`);\n\nALTER TABLE `tb_stars_system` ADD FOREIGN KEY (`id`) REFERENCES `tb_planet` (`space_objects_id`);\n\nALTER TABLE `tb_planet` ADD FOREIGN KEY (`id`) REFERENCES `tb_cat_properties` (`space_objects_id`);\n\nALTER TABLE `tb_stars` ADD FOREIGN KEY (`id`) REFERENCES `tb_cat_properties` (`space_objects_id`);\n\nALTER TABLE `tb_cat_values` ADD FOREIGN KEY (`space_objects_options_id`) REFERENCES `tb_cat_properties` (`id`);\n\nALTER TABLE `tb_employee_expedition` ADD FOREIGN KEY (`employee_id`) REFERENCES `tb_employee` (`id`);\n
+===================================================================
+diff --git a/Sсhema/sсhema_DB_UNEVERYS.sql b/Sсhema/sсhema_DB_UNEVERYS.sql
+--- a/Sсhema/sсhema_DB_UNEVERYS.sql	
++++ b/Sсhema/sсhema_DB_UNEVERYS.sql	
+@@ -1,107 +1,107 @@
+-CREATE TABLE `tb_expedition` (
+-  `name_id` varchar PRIMARY KEY,
+-  `created_at` timestamp,
+-  `name_spacecraft_id` varchar,
+-  `start_flight_time` DATETIME2,
+-  `finish_flight_time` DATETIME2,
+-  `employee_expedition_id` varchar,
+-  `palnet_id` int
++CREATE TABLE tb_expedition (
++  name_id VARCHAR(255) PRIMARY KEY,
++  created_at DATETIME2(0),
++  name_spacecraft_id VARCHAR,
++  start_flight_time  DATETIME2(0),
++  finish_flight_time  DATETIME2(0),
++  employee_expedition_id VARCHAR,
++  palnet_id int
+ );
+ 
+-CREATE TABLE `tb_expedition_options` (
+-  `expedition_id` varchar,
+-  `created_at` timestamp,
+-  `name` varchar,
+-  `descriptions` varchar
++CREATE TABLE tb_expedition_options (
++  expedition_id VARCHAR,
++  created_at DATETIME2(0),
++  name VARCHAR,
++  descriptions VARCHAR
+ );
+ 
+-CREATE TABLE `tb_galaxy` (
+-  `id` INT PRIMARY KEY,
+-  `create_date` DATETIME2,
+-  `mass` INT,
+-  `core` BIT,
+-  `movement_stars` INT,
+-  `name` VARCHAR
++CREATE TABLE tb_galaxy (
++  id INT PRIMARY KEY,
++  create_date  DATETIME2(0),
++  mass INT,
++  core BIT,
++  movement_stars INT,
++  name VARCHAR
+ );
+ 
+-CREATE TABLE `tb_stars_system` (
+-  `id` integer PRIMARY KEY,
+-  `galaxy_id` INT,
+-  `objects_id` INT,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_stars_system (
++  id integer PRIMARY KEY,
++  galaxy_id INT,
++  objects_id INT,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_stars` (
+-  `id` integer PRIMARY KEY,
+-  `space_objects_id` integer UNIQUE,
+-  `title` varchar,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_stars (
++  id integer PRIMARY KEY,
++  space_objects_id integer UNIQUE,
++  title VARCHAR,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_planet` (
+-  `id` integer PRIMARY KEY,
+-  `space_objects_id` integer UNIQUE,
+-  `title` varchar,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_planet (
++  id integer PRIMARY KEY,
++  space_objects_id integer UNIQUE,
++  title VARCHAR,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_cat_properties` (
+-  `id` integer PRIMARY KEY,
+-  `space_objects_id` integer UNIQUE,
+-  `objects_id` integer,
+-  `title` varchar,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_cat_properties (
++  id integer PRIMARY KEY,
++  space_objects_id integer UNIQUE,
++  objects_id integer,
++  title VARCHAR,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_cat_values` (
+-  `space_objects_options_id` integer,
+-  `title` varchar,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_cat_values (
++  space_objects_options_id integer,
++  title VARCHAR,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_spacecraft` (
+-  `name_id` integer PRIMARY KEY,
+-  `mass` varchar,
+-  `width` varchar,
+-  `hight` varchar,
+-  `length` varchar,
+-  `engine` varchar,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_spacecraft (
++  name_id integer PRIMARY KEY,
++  mass VARCHAR,
++  width VARCHAR,
++  hight VARCHAR,
++  length VARCHAR,
++  engine VARCHAR,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-CREATE TABLE `tb_employee_expedition` (
+-  `id` integer PRIMARY KEY,
+-  `employee_id` varchar
++CREATE TABLE tb_employee_expedition (
++  id integer PRIMARY KEY,
++  employee_id VARCHAR
+ );
+ 
+-CREATE TABLE `tb_employee` (
+-  `id` integer PRIMARY KEY,
+-  `Email_address` varchar,
+-  `Name` varchar,
+-  `Phone` number,
+-  `position` varchar,
+-  `skill_id` integer,
+-  `body` text COMMENT 'Content of the post'
++CREATE TABLE tb_employee (
++  id integer PRIMARY KEY,
++  Email_address VARCHAR,
++  Name VARCHAR,
++  Phone number,
++  position VARCHAR,
++  skill_id integer,
++  body text COMMENT 'Content of the post'
+ );
+ 
+-ALTER TABLE `tb_expedition` ADD FOREIGN KEY (`name_id`) REFERENCES `tb_expedition_options` (`expedition_id`);
++ALTER TABLE tb_expedition ADD FOREIGN KEY (name_id) REFERENCES tb_expedition_options (expedition_id);
+ 
+-ALTER TABLE `tb_expedition` ADD FOREIGN KEY (`name_spacecraft_id`) REFERENCES `tb_spacecraft` (`name_id`);
++ALTER TABLE tb_expedition ADD FOREIGN KEY (name_spacecraft_id) REFERENCES tb_spacecraft (name_id);
+ 
+-ALTER TABLE `tb_expedition` ADD FOREIGN KEY (`employee_expedition_id`) REFERENCES `tb_employee_expedition` (`id`);
++ALTER TABLE tb_expedition ADD FOREIGN KEY (employee_expedition_id) REFERENCES tb_employee_expedition (id);
+ 
+-ALTER TABLE `tb_planet` ADD FOREIGN KEY (`id`) REFERENCES `tb_expedition` (`palnet_id`);
++ALTER TABLE tb_planet ADD FOREIGN KEY (id) REFERENCES tb_expedition (palnet_id);
+ 
+-ALTER TABLE `tb_galaxy` ADD FOREIGN KEY (`id`) REFERENCES `tb_stars_system` (`galaxy_id`);
++ALTER TABLE tb_galaxy ADD FOREIGN KEY (id) REFERENCES tb_stars_system (galaxy_id);
+ 
+-ALTER TABLE `tb_stars_system` ADD FOREIGN KEY (`id`) REFERENCES `tb_stars` (`space_objects_id`);
++ALTER TABLE tb_stars_system ADD FOREIGN KEY (id) REFERENCES tb_stars (space_objects_id);
+ 
+-ALTER TABLE `tb_stars_system` ADD FOREIGN KEY (`id`) REFERENCES `tb_planet` (`space_objects_id`);
++ALTER TABLE tb_stars_system ADD FOREIGN KEY (id) REFERENCES tb_planet (space_objects_id);
+ 
+-ALTER TABLE `tb_planet` ADD FOREIGN KEY (`id`) REFERENCES `tb_cat_properties` (`space_objects_id`);
++ALTER TABLE tb_planet ADD FOREIGN KEY (id) REFERENCES tb_cat_properties (space_objects_id);
+ 
+-ALTER TABLE `tb_stars` ADD FOREIGN KEY (`id`) REFERENCES `tb_cat_properties` (`space_objects_id`);
++ALTER TABLE tb_stars ADD FOREIGN KEY (id) REFERENCES tb_cat_properties (space_objects_id);
+ 
+-ALTER TABLE `tb_cat_values` ADD FOREIGN KEY (`space_objects_options_id`) REFERENCES `tb_cat_properties` (`id`);
++ALTER TABLE tb_cat_values ADD FOREIGN KEY (space_objects_options_id) REFERENCES tb_cat_properties (id);
+ 
+-ALTER TABLE `tb_employee_expedition` ADD FOREIGN KEY (`employee_id`) REFERENCES `tb_employee` (`id`);
++ALTER TABLE tb_employee_expedition ADD FOREIGN KEY (employee_id) REFERENCES tb_employee (id);
