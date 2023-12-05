@@ -8,7 +8,7 @@ Table "tb_expedition" {
 
 Table "tb_expedition_bunch_planets" {
   "expedition_id" VARCHAR(255) [NOT NULL]
-  "palnet_id" INT [NOT NULL]
+  "planet_id" INT [NOT NULL]
 }
 
 Table "tb_galaxy" {
@@ -19,7 +19,7 @@ Table "tb_galaxy" {
   "name" VARCHAR(255) [NOT NULL]
 }
 
-Table "tb_stars_system" {
+Table "tb_planet_system" {
   "id" INT [PRIMARY KEY]
   "galaxy_id" INT [NOT NULL]
   "name" VARCHAR(255)
@@ -40,7 +40,6 @@ Table "tb_spacecraft" {
   "break_spacecraft" BIT [NOT NULL]
 }
 
-
 Table "tb_employee_expedition" {
   "name_id" VARCHAR(255)  [NOT NULL, UNIQUE]
   "employee_expedition_id" VARCHAR(255) [NOT NULL]
@@ -60,12 +59,12 @@ Ref:"tb_spacecraft"."name_id" < "tb_expedition"."name_spacecraft_id"
 
 Ref:"tb_employee_expedition"."name_id" < "tb_expedition"."employee_expedition_id"
 
-Ref:"tb_expedition_bunch_planets"."palnet_id" < "tb_planet"."id"
+Ref:"tb_expedition_bunch_planets"."planet_id" < "tb_planet"."id"
 
-Ref:"tb_stars_system"."galaxy_id" < "tb_galaxy"."id"
+Ref:"tb_planet_system"."galaxy_id" < "tb_galaxy"."id"
 
-Ref:"tb_stars_system"."id" < "tb_stars"."stars_system_id"
+Ref:"tb_planet_system"."id" < "tb_stars"."stars_system_id"
 
-Ref:"tb_stars_system"."id" < "tb_planet"."stars_system_id"
+Ref:"tb_planet_system"."id" < "tb_planet"."stars_system_id"
 
 Ref:"tb_employee_expedition"."employee_expedition_id" < "tb_employee"."id"
