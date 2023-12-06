@@ -27,12 +27,13 @@ Table "tb_planet_system" {
 
 Table "tb_stars" {
   "id" INT [PRIMARY KEY]
-  "stars_system_id" INT [NOT NULL, UNIQUE]
+  "planet_id" INT [NOT NULL, UNIQUE]
+  "galaxy_id" INT [NOT NULL]
 }
 
 Table "tb_planet" {
   "id" INT [PRIMARY KEY]
-  "stars_system_id" INT [NOT NULL, UNIQUE]
+  "galaxy_id" INT [NOT NULL, UNIQUE]
 }
 
 Table "tb_spacecraft" {
