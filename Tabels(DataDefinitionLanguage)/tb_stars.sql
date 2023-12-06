@@ -4,5 +4,5 @@ CREATE TABLE DB_UNIVERSE.void.tb_stars (
     name_latin VARCHAR(50) NOT NULL, 
     galaxy_id INT NOT NULL,
     
-    FOREIGN KEY (galaxy_id) REFERENCES DB_UNIVERSE.void.galaxy (id)
+    FOREIGN KEY (galaxy_id) REFERENCES DB_UNIVERSE.void.tb_galaxy (id)
 )
