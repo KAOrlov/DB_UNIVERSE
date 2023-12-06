@@ -1,4 +1,0 @@
-CREATE TABLE DB_UNIVERSE.void.tb_cat_properties (
-    id INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-    name VARCHAR(50) NOT NULL, 
-)
