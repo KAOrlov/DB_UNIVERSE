@@ -6,11 +6,6 @@ Table "tb_galaxy" {
   "name" VARCHAR(255) [NOT NULL]
 }
 
-Table "tb_galaxy_star" {
-  "star_id" INT [NOT NULL, PK]
-  "galaxy_id" INT [NOT NULL]
-}
-
 Table "tb_planet_system" {
   "id" INT [PRIMARY KEY, NOT NULL]
   "planet_id" INT [NOT NULL]
@@ -20,7 +15,12 @@ Table "tb_planet_system" {
 
 Table "tb_planet" {
   "id" INT [PRIMARY KEY]
-  "galaxy_id" INT [NOT NULL, UNIQUE]
+  "name" VARCHAR(100) [ NOT NULL ]
+}
+
+Table "tb_galaxy_planet" {
+  "planet_id" INT [NOT NULL, PK]
+  "galaxy_id" INT [NOT NULL]
 }
 
 Table "tb_star" {
@@ -28,12 +28,17 @@ Table "tb_star" {
   "name" VARCHAR(100) [ NOT NULL ]
 }
 
+Table "tb_galaxy_star" {
+  "star_id" INT [NOT NULL, PK]
+  "galaxy_id" INT [NOT NULL]
+}
+
 Table "tb_expedition" {
   "name_id" VARCHAR(255) [NOT NULL, UNIQUE]
+  "employee_expedition_id" VARCHAR(255) [NOT NULL]
   "name_spacecraft_id" VARCHAR(255) [NOT NULL]
   "start_flight_time" DATETIME2(0) [NOT NULL]
   "finish_flight_time" DATETIME2(0) [NOT NULL]
-  "employee_expedition_id" VARCHAR(255) [NOT NULL]
 }
 
 Table "tb_expedition_bunch_planets" {
@@ -58,11 +63,14 @@ Table "tb_employee" {
   "phone" INT [NOT NULL]
   "position" VARCHAR(255) [NOT NULL]
 }
+
 Ref:"tb_planet_system"."planet_id" > "tb_planet"."id"
 
 Ref:"tb_planet_system"."star_id" > "tb_star"."id"
 
-Ref:"tb_galaxy"."id" > "tb_planet"."galaxy_id"
+Ref:"tb_galaxy_planet"."galaxy_id" > "tb_galaxy"."id"
+
+Ref:"tb_galaxy_planet"."planet_id" > "tb_planet"."id"
 
 Ref:"tb_galaxy_star"."galaxy_id" > "tb_galaxy"."id"
 
