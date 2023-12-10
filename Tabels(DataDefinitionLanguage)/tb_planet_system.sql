@@ -1,4 +1,5 @@
 CREATE TABLE DB_UNIVERSE.void.tb_planet_system (
+    id INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
     planet_id INT NOT NULL,
     star_id INT NOT NULL,
     galaxy_id INT NOT NULL
