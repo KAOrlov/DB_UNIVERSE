@@ -1,45 +1,71 @@
-CREATE OR ALTER DB_UNIVERSE.void.set_galaxy.sql
-    @id INT NOT NULL = -1
-    @mass INT NOT NULL = -1
-    @core BIT NOT NULL = 0
-    @movement_stars VARCHAR(35) NOT NULL = ''
-    @name VARCHAR(255) NOT NULL = ''
-    @delete_hallmark BIT = 0
-
-    IF @delete_hallmark = 1
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_galaxy
+    @id INT NOT NULL = -1,
+    @name VARCHAR(255) NOT NULLL = '',
+    @position VARCHAR(255) NOT NULL = '',
+    @email_address VARCHAR(255) NOT NULL = '',
+    @phone INT NOT NULL = 0,
+    AS
+    IF @id <> -1
     BEGIN
-        DELETE FROM DB_UNIVERSE.void.tb_galaxy tg WITH(NOLOCK)
+        SELECT
+            tg.id
+            tg.[name],
+            tg.position,
+            tg.email_address,
+            tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
         WHERE tg.id = @id
-        END
+    END
     GO
 
-    IF @delete_hallmark = 0 AND EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
+    IF @name <> ''
     BEGIN
-        UPDATE DB_UNIVERSE.void.tb_galaxy tg
-        SET
-           tg.mass = @mass,
-           tg.core = @core,
-           tg.movement_stars = @movement_stars,
-           tg.[name] = @name
-        END
+        SELECT
+            tg.id
+            tg.[name],
+            tg.position,
+            tg.email_address,
+            tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
+        WHERE tg.name = @name
+    END
     GO
 
-    IF @delete_hallmark = 0 AND NOT EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
+    IF @position <> ''
     BEGIN
-        INSERT INTO DB_UNIVERSE.void.tb_galaxy
-            (
-                mass,
-                core,
-                movement_stars,
-                [name]
-            )
-        VALUES
-            (
-                @mass,
-                @core,
-                @movement_stars,
-                @name
-            )
-        END
+        SELECT
+            tg.id
+            tg.[name],
+            tg.position,
+            tg.email_address,
+            tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
+        WHERE tg.position = @position
+    END
+    GO
+
+    IF @email_address <> ''
+    BEGIN
+        SELECT
+           tg.id
+           tg.[name],
+           tg.position,
+           tg.email_address,
+           tg.phone = @phone
+           FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
+           WHERE tg.email_address = @email_address
+    END
+    GO
+
+    IF @phone <> 0
+    BEGIN
+        SELECT
+            tg.id
+            tg.[name],
+            tg.position,
+            tg.email_address,
+            tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
+        WHERE tg.phone = @phone
     END
     GO

@@ -1,15 +1,11 @@
-CREATE OR ALTER void.set_galaxy.sql
-    @operetion VARCHAR(255) = 'all',
-    @galaxy INT = '',
-    @spacecraft VARCHAR(255) = '',
-    @expedition VARCHAR(255) = '',
-    @employee INT = ''
-
-    IF @operetion = 'all'
-    BEGIN TRY
-        SELECT 'НУЖНО БОЛЬШЕ ИНФОРМАЦИИ'
-
-    END TRY
-    BEGIN CATCH
-       -- сюда можно добавить процедуру с ошибками.
-    END CATCH
+CREATE OR ALTER PROCEDURE void.set_galaxy
+    @galaxy INT = ''
+    AS
+    SELECT
+        tg.id,
+        tg.mass,
+        tg.core,
+        tg.movement_stars,
+        tg.[name]
+    FROM DB_UNIVERSE.void.tb_galaxy tg WITH(NOLOCK)
+    WHERE tg.id = @galaxy
