@@ -17,7 +17,7 @@ CREATE TABLE DB_UNIVERSE.void.galaxy (
             'Квазары',
             'Темные галактики'
             )
-        ), -- как движутся солнечные массы в нутри вселеной.
+        ), -- как движутся солнечные массы в нутри галактики.
     name VARCHAR(255) NOT NULL, -- название галактики.
 
     CONSTRAINT ck_galaxy CHECK (mass >= 550000 AND movement_stars <> '')
