@@ -1,44 +1,44 @@
-CREATE OR ALTER DB_UNIVERSE.void.set_galaxy.sql
-    @id INT NOT NULL = -1
-    @mass INT NOT NULL = -1
-    @core BIT NOT NULL = 0
-    @movement_stars VARCHAR(35) NOT NULL = ''
-    @name VARCHAR(255) NOT NULL = ''
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.tb_employee
+    @id INT NOT NULL = -1,
+    @name VARCHAR(255) NOT NULLL = '',
+    @position VARCHAR(255) NOT NULL = '',
+    @email_address VARCHAR(255) NOT NULL = '',
+    @phone INT NOT NULL = 0,
     @delete_hallmark BIT = 0
-
+    AS
     IF @delete_hallmark = 1
     BEGIN
-        DELETE FROM DB_UNIVERSE.void.tb_galaxy tg WITH(NOLOCK)
+        DELETE FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
         WHERE tg.id = @id
         END
     GO
 
-    IF @delete_hallmark = 0 AND EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
+    IF @delete_hallmark = 0 AND @id <> -1
     BEGIN
-        UPDATE DB_UNIVERSE.void.tb_galaxy tg
+        UPDATE DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
         SET
-           tg.mass = @mass,
-           tg.core = @core,
-           tg.movement_stars = @movement_stars,
-           tg.[name] = @name
+           tg.[name] = @name,
+           tg.position = @position,
+           tg.email_address = @email_address,
+           tg.phone = @phone
         END
     GO
 
-    IF @delete_hallmark = 0 AND NOT EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
+    IF @delete_hallmark = 0 AND @id = -1
     BEGIN
-        INSERT INTO DB_UNIVERSE.void.tb_galaxy
+        INSERT INTO DB_UNIVERSE.void.tb_employee WITH(NOLOCK)
             (
-                mass,
-                core,
-                movement_stars,
-                [name]
+                [name],
+                position,
+                email_address,
+                phone
             )
         VALUES
             (
-                @mass,
-                @core,
-                @movement_stars,
-                @name
+                @name,
+                @position,
+                @email_address,
+                @phone
             )
         END
     END

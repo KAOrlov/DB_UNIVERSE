@@ -1,37 +1,37 @@
-CREATE OR ALTER DB_UNIVERSE.void.set_spacecraft.sql
-    @name_id VARCHAR(255) NOT NULL = ''
-    @break_spacecraft BIT NOT NULL = 1
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.tb_expedition_bunch_planets
+    @expedition_id VARCHAR(255) NOT NULL = '',
+    @planet_id BIT NOT NULL = 1,
     @delete_hallmark BIT = 0
-
+    AS
     IF @delete_hallmark = 1
-BEGIN
-DELETE FROM DB_UNIVERSE.void.tb_spacecraft ts WITH(NOLOCK)
-WHERE ts.id = @name_id
+    BEGIN
+        DELETE FROM DB_UNIVERSE.void.tb_expedition_bunch_planets ebp WITH(NOLOCK)
+        WHERE ebp.expedition_id = @expedition_id
     END
     GO
 
     IF @delete_hallmark = 0
-  AND @name_id <> ''
-BEGIN
-UPDATE DB_UNIVERSE.void.set_spacecraft ts
-SET
-    ts.name_id = @name_id,
-    ts.break_spacecraft = @break_spacecraft,
+    AND @expedition_id <> ''
+    BEGIN
+        UPDATE DB_UNIVERSE.void.tb_expedition_bunch_planets ebp WITH(NOLOCK)
+        SET
+        ebp.expedition_id = @expedition_id,
+        ebp.planet_id = @planet_id,
     END
-        GO
+    GO
 
     IF @delete_hallmark = 0
-    AND @name_id = ''
-BEGIN
-INSERT INTO DB_UNIVERSE.void.tb_galaxy
-(
-    name_id,
-    break_spacecraft
-)
-    VALUES
+    AND @expedition_id = ''
+    BEGIN
+        INSERT INTO DB_UNIVERSE.void.tb_expedition_bunch_planets WITH(NOLOCK)
         (
-            @name_id,
-            @break_spacecraft
+            expedition_id,
+            planet_id
         )
-        END
+        VALUES
+        (
+            @expedition_id,
+            @planet_id
+        )
+    END
     GO

@@ -1,4 +1,4 @@
-CREATE TABLE DB_UNIVERSE.void.tb_expedition_options
+CREATE TABLE DB_UNIVERSE.void.tb_expedition_bunch_planets
 (
     expedition_id VARCHAR(255) NOT NULL,
     planet_id INT NOT NULL,

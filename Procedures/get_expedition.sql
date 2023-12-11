@@ -1,45 +1,32 @@
-CREATE OR ALTER DB_UNIVERSE.void.set_galaxy.sql
-    @id INT NOT NULL = -1
-    @mass INT NOT NULL = -1
-    @core BIT NOT NULL = 0
-    @movement_stars VARCHAR(35) NOT NULL = ''
-    @name VARCHAR(255) NOT NULL = ''
-    @delete_hallmark BIT = 0
-
-    IF @delete_hallmark = 1
-BEGIN
-DELETE FROM DB_UNIVERSE.void.tb_galaxy tg WITH(NOLOCK)
-WHERE tg.id = @id
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.get_expedition
+    @name_id VARCHAR(255) NOT NULL = '', -- название експидиции
+    @employee_expedition_id VARCHAR(255) NOT NULL = '', -- имя каманды
+    @name_spacecraft_id VARCHAR(255) NOT NULL = '', -- имя корабля
+    @start_flight_time DATETIME2(0) NOT NULL = '1900-01-01 00:00:00',
+    @finish_flight_time DATETIME2(0) NOT NULL = '1900-01-01 00:00:00',
+    AS
+    IF @name_id <> ''
+    BEGIN
+        SELECT
+           tg.name_id,
+           tg.employee_expedition_id,
+           tg.name_spacecraft_id,
+           tg.email_address,
+           tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_expedition te WITH(NOLOCK)
+        WHERE tg.name_id = @name_id AND te.start_flight_time AND te.finish_flight_time
     END
     GO
 
-    IF @delete_hallmark = 0 AND EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
-BEGIN
-UPDATE DB_UNIVERSE.void.tb_galaxy tg
-SET
-    tg.mass = @mass,
-    tg.core = @core,
-    tg.movement_stars = @movement_stars,
-    tg.[name] = @name
-    END
-    GO
-
-    IF @delete_hallmark = 0 AND NOT EXISTS (SELECT 1 FROM DB_UNIVERSE.void.tb_galaxy tg WHERE tg.id = @id);
-BEGIN
-INSERT INTO DB_UNIVERSE.void.tb_galaxy
-(
-    mass,
-    core,
-    movement_stars,
-    [name]
-)
-    VALUES
-        (
-            @mass,
-            @core,
-            @movement_stars,
-            @name
-        )
-        END
+    IF @employee_expedition_id <> ''
+    BEGIN
+        SELECT
+            tg.name_id,
+            tg.employee_expedition_id,
+            tg.name_spacecraft_id,
+            tg.email_address,
+            tg.phone = @phone
+        FROM DB_UNIVERSE.void.tb_expedition te WITH(NOLOCK)
+        WHERE tg.employee_expedition_id = @employee_expedition_id
     END
     GO
