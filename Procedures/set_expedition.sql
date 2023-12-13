@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.tb_expedition
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_expedition
     @name_id VARCHAR(255) NOT NULL = '', -- название експидиции
     @employee_expedition_id VARCHAR(255) NOT NULL = '', -- имя каманды
     @name_spacecraft_id VARCHAR(255) NOT NULL = '', -- имя корабля

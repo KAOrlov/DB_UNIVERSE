@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE void.set_galaxy
+CREATE OR ALTER PROCEDURE void.get_galaxy
     @galaxy INT = ''
     AS
     SELECT

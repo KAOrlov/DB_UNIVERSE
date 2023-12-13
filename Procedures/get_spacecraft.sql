@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_spacecraft
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.get_spacecraft
     @name_id INT NOT NULL = -1
     AS
     SELECT

@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.tb_employee
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_employee
     @id INT NOT NULL = -1,
     @name VARCHAR(255) NOT NULLL = '',
     @position VARCHAR(255) NOT NULL = '',
