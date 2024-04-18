@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_expedition_bunch_planets
-    @expedition_id VARCHAR(255) NOT NULL = '',
-    @planet_id BIT NOT NULL = 1,
-    @delete_hallmark BIT = 0
+    @expedition_id VARCHAR(255),
+    @planet_id BIT,
+    @delete_hallmark BIT
     AS
     IF @delete_hallmark = 1
     BEGIN

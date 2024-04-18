@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_spacecraft
-    @name_id VARCHAR(255) NOT NULL = '',
-    @break_spacecraft BIT NOT NULL = 1,
-    @delete_hallmark BIT = 0
+    @name_id VARCHAR(255),
+    @break_spacecraft BIT,
+    @delete_hallmark BIT
     AS
     IF @delete_hallmark = 1
        BEGIN

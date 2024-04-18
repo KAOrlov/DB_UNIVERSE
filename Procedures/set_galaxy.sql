@@ -1,10 +1,10 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_galaxy
-    @id INT NOT NULL = -1,
-    @mass INT NOT NULL = -1,
-    @core BIT NOT NULL = 0,
-    @movement_stars VARCHAR(35) NOT NULL = '',
-    @name VARCHAR(255) NOT NULL = '',
-    @delete_hallmark BIT = 0
+    @id INT,
+    @mass INT,
+    @core BIT,
+    @movement_stars VARCHAR(35),
+    @name VARCHAR(255),
+    @delete_hallmark BIT
     AS
     IF @delete_hallmark = 1
     BEGIN

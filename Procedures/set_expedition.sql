@@ -1,10 +1,10 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_expedition
-    @name_id VARCHAR(255) NOT NULL = '', -- название експидиции
-    @employee_expedition_id VARCHAR(255) NOT NULL = '', -- имя каманды
-    @name_spacecraft_id VARCHAR(255) NOT NULL = '', -- имя корабля
-    @start_flight_time DATETIME2(0) NOT NULL = '1900-01-01 00:00:00',
-    @finish_flight_time DATETIME2(0) NOT NULL = '1900-01-01 00:00:00',
-    @delete_hallmark BIT = 0
+    @name_id VARCHAR(255), -- название експидиции
+    @employee_expedition_id VARCHAR(255), -- имя каманды
+    @name_spacecraft_id VARCHAR(255), -- имя корабля
+    @start_flight_time DATETIME2(0),
+    @finish_flight_time DATETIME2(0),
+    @delete_hallmark BIT
     AS
     IF @delete_hallmark = 1
     BEGIN

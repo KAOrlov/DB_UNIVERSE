@@ -1,12 +1,11 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_employee
-    @id INT NOT NULL = -1,
-    @name VARCHAR(255) NOT NULLL = '',
-    @position VARCHAR(255) NOT NULL = '',
-    @email_address VARCHAR(255) NOT NULL = '',
-    @phone INT NOT NULL = 0,
-    @delete_hallmark BIT = 0
+    @id INT,
+    @name VARCHAR(255),
+    @position VARCHAR(255),
+    @email_address VARCHAR(255),
+    @phone INT,
+    @delete_hallmark BIT
     AS
-    IF @delete_hallmark = 1
     BEGIN
         DELETE FROM DB_UNIVERSE.void.tb_employee te WITH(NOLOCK)
         WHERE tg.id = @id

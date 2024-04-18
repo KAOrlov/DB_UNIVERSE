@@ -1,5 +1,5 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.get_spacecraft
-    @name_id INT NOT NULL = -1
+    @name_id INT
     AS
     SELECT
         ts.name_id,

@@ -1,5 +1,5 @@
 CREATE OR ALTER PROCEDURE void.get_galaxy
-    @galaxy INT = ''
+    @galaxy INT
     AS
     SELECT
         tg.id,

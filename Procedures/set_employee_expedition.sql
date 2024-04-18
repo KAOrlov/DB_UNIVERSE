@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.set_employee_expedition
-    @name_id VARCHAR(255) NOT NULL = '',
-    @employee_id VARCHAR(255) NOT NULL = '',
-    @delete_hallmark BIT = 0
+    @name_id VARCHAR(255),
+    @employee_id VARCHAR(255),
+    @delete_hallmark BIT
     AS
     IF @delete_hallmark = 1
     BEGIN

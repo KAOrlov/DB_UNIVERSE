@@ -1,6 +1,6 @@
 CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.get_employee_expedition
-    @name_id VARCHAR(255) NOT NULL,
-    @employee_id VARCHAR(255) NOT NULL,
+    @name_id VARCHAR(255),
+    @employee_id VARCHAR(255),
     AS
     SELECT
         tee.name_id,
