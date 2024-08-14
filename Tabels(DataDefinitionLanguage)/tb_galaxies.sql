@@ -3,7 +3,7 @@
 CREATE TABLE DB_UNIVERSE.void.galaxy (
     id INT IDENTITY(1,1) PRIMARY KEY, -- уникальный ключь
     mass INT NOT NULL, -- вес галактики в солнечных масс
-    core BIT CHECK (core = 0) NOT NULL, -- ядро вселеной: 0 - нету, 1 - есть
+    core BIT CHECK (core = 0) NOT NULL DEFAULT 1, -- ядро вселеной: 0 - нету, 1 - есть
     movement_stars VARCHAR(35) NOT NULL CHECK (
         movement_stars in(
             'Спиральные галактики',

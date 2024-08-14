@@ -1,0 +1,8 @@
+CREATE OR ALTER PROCEDURE DB_UNIVERSE.void.get_employee_expedition
+    @name_id VARCHAR(255),
+    @employee_id VARCHAR(255),
+AS
+   SELECT tee.name_id,
+          tee.employee_id
+   FROM DB_UNIVERSE.void.tb_employee_expedition tee WITH(NOLOCK)
+   WHERE tee.name_id
